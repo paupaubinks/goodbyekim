@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11110f">
+  <title>Abschiedsparty Kim — Einladung</title>
+  <style>
+    :root {
+      --bg: #11110f; --panel: #1b1a17; --cream: #f5efe4;
+      --muted: #c8c0b4; --gold: #c8a96e; --line: rgba(200,169,110,.42);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; padding: 24px;
+      background: radial-gradient(ellipse at 50% 0%, rgba(200,169,110,.15), transparent 50%), var(--bg);
+      color: var(--cream); font-family: Georgia, "Times New Roman", serif;
+    }
+    .page { min-height: calc(100vh - 48px); display: grid; place-items: center; }
+    .invite {
+      width: min(100%, 720px); text-align: center; position: relative; overflow: hidden;
+      padding: clamp(28px, 6vw, 58px) clamp(18px, 5vw, 52px);
+      border: 1px solid var(--line); outline: 1px solid rgba(200,169,110,.13); outline-offset: 6px;
+      background: linear-gradient(145deg, rgba(255,255,255,.025), transparent 55%), var(--panel);
+      box-shadow: 0 24px 80px rgba(0,0,0,.4);
+    }
+    .eyebrow { color: var(--gold); font: 11px/1.6 Arial, sans-serif; letter-spacing: .32em; text-transform: uppercase; }
+    .ornament { color: var(--gold); font-size: 22px; margin: 18px 0; }
+    h1 { font-weight: 400; font-size: clamp(38px, 9vw, 68px); line-height: .98; margin: 0; }
+    h1 span { display: block; color: var(--gold); font-style: italic; }
+    .intro { max-width: 470px; margin: 24px auto 0; font-size: clamp(17px, 3.5vw, 21px); line-height: 1.6; }
+    .details { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; margin: 25px auto 0; }
+    .detail { font: 12px Arial, sans-serif; letter-spacing: .08em; color: var(--muted); }
+    .detail strong { display: block; color: var(--cream); font-size: 14px; font-weight: 400; margin-top: 6px; letter-spacing: .03em; }
+    .rule { height: 1px; max-width: 360px; margin: 27px auto; background: var(--line); }
+    .section-label { color: var(--gold); font: 10px Arial, sans-serif; letter-spacing: .28em; text-transform: uppercase; }
+    .question-card { padding: 23px 10px; border-top: 1px solid var(--line); }
+    .question-card h2 { font-size: clamp(21px, 4vw, 26px); font-weight: 400; margin: 10px 0 8px; }
+    .question-card p { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0 auto 17px; }
+    .choices { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 11px; min-height: 56px; }
+    button {
+      min-width: 135px; max-width: 100%; padding: 15px 17px; border: 1px solid var(--gold);
+      font: 11px Arial, sans-serif; letter-spacing: .09em; text-transform: uppercase;
+    }
+    .choice, .runaway { cursor: pointer; color: #17140f; background: #f5efe4; border-color: #fff; transition: transform .18s, box-shadow .18s; }
+    .choice:hover, .runaway:hover { transform: translateY(-3px); box-shadow: 0 7px 24px rgba(255,255,255,.13); }
+    .choice.selected { background: var(--gold); border-color: var(--gold); }
+    .hint { color: #938b7e; font: 11px/1.6 Arial, sans-serif; margin: 18px auto 0; min-height: 18px; }
+    .reveal { display: none; margin: 24px auto 0; padding: 22px 16px; border: 1px solid var(--line); background: rgba(200,169,110,.07); animation: reveal .6s ease both; }
+    .reveal h2 { color: var(--gold); font-size: clamp(25px, 6vw, 34px); font-weight: 400; margin: 0 0 8px; }
+    .reveal p { margin: 0; line-height: 1.7; }
+    .footer { margin-top: 26px; color: #81786b; font: 10px Arial, sans-serif; letter-spacing: .18em; text-transform: uppercase; }
+    .confetti-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 20; }
+    .confetti { position: absolute; top: -30px; width: 7px; height: 12px; opacity: 0; animation: fall var(--duration) linear forwards; }
+    .bubble { position: absolute; bottom: -35px; font-size: var(--size); opacity: 0; animation: bubble-up var(--duration) ease-out forwards; filter: drop-shadow(0 0 6px rgba(200,169,110,.25)); }
+    @keyframes fall { 0% { transform: translate3d(0,-20px,0) rotate(0deg); opacity: 1; } 100% { transform: translate3d(var(--drift),110vh,0) rotate(760deg); opacity: .9; } }
+    @keyframes bubble-up { 0% { transform: translateY(0) scale(.7); opacity: 0; } 15% { opacity: .95; } 100% { transform: translateY(-115vh) scale(1.2); opacity: 0; } }
+    @keyframes reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 430px) { body { padding: 18px; } .detail { min-width: 120px; } button { min-width: 125px; padding: 14px 12px; font-size: 10px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
+  <div class="page">
+    <main class="invite">
+      <div class="eyebrow">One last toast before the getaway</div>
+      <div class="ornament" aria-hidden="true">✦ &nbsp; ✧ &nbsp; ✦</div>
+      <h1>Abschiedsparty <span>Kim</span></h1>
+      <p class="intro">Kim verabschiedet sich in den Urlaub —<br>das muss natürlich stilvoll gefeiert werden. 🥂</p>
+
+      <div class="details">
+        <div class="detail">DATUM<strong>Sonntag, 01.11.2026</strong></div>
+        <div class="detail">BEGINN<strong>Ab 14:00 Uhr</strong></div>
+      </div>
+
+      <div class="rule"></div>
+      <section class="question-card" id="food-card">
+        <div class="section-label">Question no. 01</div>
+        <h2>Was möchtest du essen?</h2>
+        <p>Deine kulinarische Meinung wird offiziell zur Kenntnis genommen. 🍽️</p>
+        <div class="choices">
+          <button class="choice" type="button" data-pick="food" data-message="Pizza it is! 🍕">Pizza</button>
+          <button class="choice" type="button" data-pick="food" data-message="Cordon-Bleu — eine ausgezeichnete Wahl. 😎">Cordon-Bleu</button>
+          <button class="choice" type="button" data-pick="food" data-message="BBQ? Jetzt wird's ernst. 🔥">BBQ</button>
+          <button class="runaway" type="button" data-runaway>Gemüse</button>
+          <button class="choice" type="button" id="suggestion">Ich habe einen besseren Vorschlag</button>
+        </div>
+        <p class="hint" id="food-hint">Psst: Gemüse ist heute nicht auf der Gästeliste. 😂</p>
+      </section>
+
+      <section class="question-card" id="wine-card">
+        <div class="section-label">Question no. 02</div>
+        <h2>Bringst du eine Flasche Wein?</h2>
+        <div class="choices">
+          <button class="runaway" type="button" data-runaway>Klar, gerne</button>
+          <button class="choice" type="button" data-pick="wine" data-message="Sehr vernünftig.">No.</button>
+        </div>
+        <p class="hint" id="wine-hint">Du bist Gast. Du musst gar nichts mitbringen. 😇</p>
+      </section>
+
+      <section class="question-card" id="dress-card">
+        <div class="section-label">Question no. 03</div>
+        <h2>Als Gast wählst du den Dresscode</h2>
+        <p>Bitte sorgfältig auswählen. Es gibt hier klare Favoriten. 👀</p>
+        <div class="choices">
+          <button class="runaway" type="button" data-runaway>All black</button>
+          <button class="choice" type="button" id="white">Weisses Oberteil 🤍</button>
+          <button class="runaway" type="button" data-runaway>Star Wars Pulli</button>
+        </div>
+        <p class="hint" id="dress-hint">Wähle weise. Weiss steht dir bestimmt.</p>
+      </section>
+
+      <section class="reveal" id="reveal" aria-live="polite">
+        <h2 id="reveal-title">Eine ausgezeichnete Wahl. 🥂</h2>
+        <p id="reveal-copy">Dresscode: WEISS. Natürlich hattest du gar keine andere Wahl. 🤍<br>Eine Flasche Wein auf Kim — und auf den Urlaub!</p>
+      </section>
+      <p class="hint" id="global-hint">Good choices only. (Na ja, fast.) 😂</p>
+      <div class="footer">Good people · Good wine · Holiday mode</div>
+    </main>
+  </div>
+  <script>
+    const reveal = document.getElementById('reveal');
+    const whiteButton = document.getElementById('white');
+    const layer = document.getElementById('confetti-layer');
+    const globalHint = document.getElementById('global-hint');
+    let celebrated = false;
+
+    function runAway(button) {
+      const rect = button.getBoundingClientRect();
+      const padding = 12;
+      const maxX = Math.max(padding, window.innerWidth - rect.width - padding);
+      const maxY = Math.max(padding, window.innerHeight - rect.height - padding);
+      let x = padding + Math.random() * (maxX - padding);
+      let y = padding + Math.random() * (maxY - padding);
+      if (Math.abs(x - rect.left) < 150 && Math.abs(y - rect.top) < 90) {
+        x = x < window.innerWidth / 2 ? Math.min(maxX, x + 180) : Math.max(padding, x - 180);
+        y = y < window.innerHeight / 2 ? Math.min(maxY, y + 100) : Math.max(padding, y - 100);
+      }
+      button.style.position = 'fixed';
+      button.style.left = `${x}px`;
+      button.style.top = `${y}px`;
+      button.style.margin = '0';
+      button.style.zIndex = '9999';
+      globalHint.textContent = 'Die falsche Antwort flüchtet. Ein Zeichen? 😂';
+    }
+
+    document.querySelectorAll('[data-runaway]').forEach(button => {
+      button.addEventListener('pointerenter', () => runAway(button));
+      button.addEventListener('pointerdown', event => { event.preventDefault(); runAway(button); });
+      button.addEventListener('click', event => { event.preventDefault(); runAway(button); });
+      button.addEventListener('focus', () => runAway(button));
+    });
+
+    document.querySelectorAll('[data-pick]').forEach(button => {
+      button.addEventListener('click', () => {
+        const group = button.dataset.pick;
+        document.querySelectorAll(`[data-pick="${group}"]`).forEach(other => {
+          other.classList.remove('selected');
+          other.setAttribute('aria-pressed', 'false');
+        });
+        button.classList.add('selected');
+        button.setAttribute('aria-pressed', 'true');
+        const hint = document.getElementById(group + '-hint');
+        if (hint) hint.textContent = button.dataset.message || 'Auswahl notiert!';
+        globalHint.textContent = 'Antwort registriert. Die Partyplanung läuft. 😎';
+      });
+    });
+
+    document.getElementById('suggestion').addEventListener('click', () => {
+      const suggestion = window.prompt('Na los, Küchenchef: Was ist dein besserer Vorschlag?');
+      if (suggestion && suggestion.trim()) {
+        document.getElementById('food-hint').textContent = 'Notiert: „' + suggestion.trim() + '“. Wir prüfen das mit dem Küchenkomitee. 👨‍🍳';
+        globalHint.textContent = 'Sonderwunsch eingereicht. Sehr offiziell. 😂';
+      } else {
+        document.getElementById('food-hint').textContent = 'Vorschläge nimmt der Gastgeber sehr gerne entgegen.';
+      }
+    });
+
+    function celebrate() {
+      if (celebrated) return;
+      celebrated = true;
+      reveal.style.display = 'block';
+      document.getElementById('dress-hint').textContent = 'Dresscode erfolgreich festgelegt. Wir sehen uns in Weiss. 🤍';
+      whiteButton.textContent = 'Weisses Oberteil gewählt ✓';
+      whiteButton.disabled = true;
+      whiteButton.style.opacity = '.8';
+
+      const colors = ['#c8a96e', '#f5efe4', '#d8c18e', '#ffffff', '#b7a17a'];
+      for (let i = 0; i < 100; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.setProperty('--duration', (2.4 + Math.random() * 3.2) + 's');
+        piece.style.setProperty('--drift', (Math.random() * 240 - 120) + 'px');
+        piece.style.animationDelay = (Math.random() * .8) + 's';
+        layer.appendChild(piece);
+        setTimeout(() => piece.remove(), 7000);
+      }
+      for (let i = 0; i < 24; i++) {
+        const bubble = document.createElement('span');
+        bubble.className = 'bubble';
+        bubble.textContent = ['🍷', '✨', '🥂'][i % 3];
+        bubble.style.left = Math.random() * 100 + 'vw';
+        bubble.style.setProperty('--size', (18 + Math.random() * 20) + 'px');
+        bubble.style.setProperty('--duration', (3 + Math.random() * 3) + 's');
+        bubble.style.animationDelay = (Math.random() * 1.1) + 's';
+        layer.appendChild(bubble);
+        setTimeout(() => bubble.remove(), 7000);
+      }
+    }
+    whiteButton.addEventListener('click', celebrate);
+
+    window.addEventListener('resize', () => {
+      document.querySelectorAll('[data-runaway]').forEach(button => {
+        if (button.style.position === 'fixed') runAway(button);
+      });
+    });
+  </script>
+</body>
+</html>
